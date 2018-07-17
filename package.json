@@ -1,0 +1,43 @@
+{
+  "name": "hackathon-be",
+  "version": "0.0.1",
+  "description": "hackathon backend",
+  "repository": "https://github.com/otrl/hackathon-be",
+  "main": "dist/index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "dotenv-expand": "^4.2.0",
+    "express": "^4.16.3",
+    "express-async-handler": "^1.1.3",
+    "keymirror": "^0.1.1",
+    "lodash": "^4.17.10",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.38.0"
+  },
+  "scripts": {
+    "start": "nodemon",
+    "dev": "npm run watch-ts & npm run tslint & nodemon",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/cors": "^2.8.4",
+    "@types/dotenv": "^4.0.3",
+    "@types/express": "^4.16.0",
+    "@types/lodash": "^4.14.110",
+    "@types/method-override": "0.0.31",
+    "@types/morgan": "^1.7.35",
+    "@types/node": "^10.3.5",
+    "@types/sequelize": "^4.27.23",
+    "nodemon": "^1.17.5",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  }
+}
