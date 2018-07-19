@@ -8,6 +8,7 @@ import {CatchmentLocations} from "../constants";
 export default class WorkHomeCatchmentController {
     static async post(req: Request, res: Response) {
         const {postCode, type} = req.body;
+        const postCodeToQuery = postCode.split(" ")[0];
 
         const where: any = {};
 
@@ -32,7 +33,8 @@ export default class WorkHomeCatchmentController {
                     fieldName = "work_postal_sector";
                 }
 
-                const postcode: string = result[fieldName].split(" ")[0];
+                // const postcode: string = result[fieldName].split(" ")[0];
+                const postcode: string = result[fieldName];
                 if (_.has(processedResults, postcode)) {
                     processedResults[postcode].users = processedResults[postcode].users + Number(result.users);
                 } else {
@@ -46,21 +48,32 @@ export default class WorkHomeCatchmentController {
                 persistResult(result, type)
             });
 
-            const postCodesResults = await db.postcode_outcodes.findAll({
+            const postCodesArray: string[] = _.keys(processedResults);
+            // postCodesArray.push(postCodeToQuery);
+
+            const postCodesShortResults = await db.postcode_outcodes.findAll({
                 where: {
-                    postcode: _.keys(processedResults)
+                    postcode: postCodeToQuery
+                }
+            });
+
+            console.log(postCodesShortResults);
+
+            const postCodesResults = await db.postcode_lad.findAll({
+                where: {
+                    postcode_sector: postCodesArray
                 }
             });
 
             const stuff: any[] = [];
             _.forOwn(processedResults, function(value, key) {
-                const geoInfo = postCodesResults.find(result => result.postcode === key);
+                const geoInfo = postCodesResults.find(result => result.postcode_sector === key);
                 stuff.push(Object.assign(value, {
                     postcode: key, latitude: geoInfo.latitude, longitude: geoInfo.longitude
                 }));
             });
 
-            return res.json({data: stuff});
+            return res.json({data: stuff, originPoint: postCodesShortResults.find(result => result.postcode === postCodeToQuery)});
 
             // return res.json({data: [
             //         {
