@@ -10,7 +10,7 @@ export default class WorkHomeCatchmentController {
                         users: 10,
                     },
                     {
-                        work_postal_sector: "WC1N 1",
+                        work_postal_sector: "SE18",
                         home_postal_sector: "NW1 1",
                         users: 62,
                     }
