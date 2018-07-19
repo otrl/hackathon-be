@@ -16,6 +16,8 @@
     "method-override": "^2.3.10",
     "morgan": "^1.9.0",
     "mysql2": "^1.5.3",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.38.0"
   },
   "scripts": {

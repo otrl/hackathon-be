@@ -1,8 +1,30 @@
 import { Request, Response } from "express";
 
+import db from "../db";
+
 export default class WorkHomeCatchmentController {
     static async post(req: Request, res: Response) {
+        const {postcode, type} = req.body;
+
+        const where: any = {};
+
+        if (type === "work") {
+            where.work_postal_sector = {
+                [db.sequelize.Op.like]: `${postcode}%`
+            };
+        } else {
+            where.home_postal_sector = {
+                [db.sequelize.Op.like]: `${postcode}%`
+            };
+        }
+
+        console.log(db);
+
         try {
+            const results = await db.workershomecatchment.findAll({ where });
+
+            console.log(results);
+
             return res.json({data: [
                     {
                         work_postal_sector: "SE18 6",

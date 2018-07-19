@@ -14,11 +14,11 @@ export default function (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.Da
         timestamps: false
     });
 
-    TestModel.associate = (models: any) => {
-        TestModel.hasMany(models.whatever, { as: "Whatever", foreignKey: "whatever_id" });
-    };
-
-    TestModel.prototype.testInstanceMethod = function () {};
+    // TestModel.associate = (models: any) => {
+    //     TestModel.hasMany(models.whatever, { as: "Whatever", foreignKey: "whatever_id" });
+    // };
+    //
+    // TestModel.prototype.testInstanceMethod = function () {};
 
     return TestModel;
 }

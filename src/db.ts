@@ -5,15 +5,17 @@ import * as Sequelize from "sequelize";
 import config from "./config";
 
 import { TestModelInstance, TestModelInterface } from "./models/TestModel";
+import { WorkersHomeCatchmentInstance, WorkersHomeCatchmentInterface } from "./models/WorkersHomeCatchment";
 
 export interface DbConnection {
     sequelize: Sequelize.Sequelize;
     TestModel: Sequelize.Model<TestModelInstance, TestModelInterface>;
+    workershomecatchment: Sequelize.Model<WorkersHomeCatchmentInstance, WorkersHomeCatchmentInterface>;
 }
 
 const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, {
     host: config.db.host,
-    dialect: "mysql",
+    dialect: "postgres",
     logging: console.log,
     dialectOptions: {
         multipleStatements: true
