@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
+import * as _ from "lodash";
 
 import db from "../db";
+
+import {CatchmentLocations} from "../constants";
 
 export default class WorkHomeCatchmentController {
     static async post(req: Request, res: Response) {
@@ -21,8 +24,43 @@ export default class WorkHomeCatchmentController {
         try {
             const results = await db.workershomecatchment.findAll({ where });
 
-            console.log(results);
-            return res.json({data: results});
+            const processedResults: any = {};
+
+            const persistResult = (result: any, type: CatchmentLocations) => {
+                let fieldName: string = "home_postal_sector";
+                if (type === CatchmentLocations.Home) {
+                    fieldName = "work_postal_sector";
+                }
+
+                const postcode: string = result[fieldName].split(" ")[0];
+                if (_.has(processedResults, postcode)) {
+                    processedResults[postcode].users = processedResults[postcode].users + Number(result.users);
+                } else {
+                    processedResults[postcode] = {
+                        users: Number(result.users)
+                    };
+                }
+            };
+
+            results.map(result => {
+                persistResult(result, type)
+            });
+
+            const postCodesResults = await db.postcode_outcodes.findAll({
+                where: {
+                    postcode: _.keys(processedResults)
+                }
+            });
+
+            const stuff: any[] = [];
+            _.forOwn(processedResults, function(value, key) {
+                const geoInfo = postCodesResults.find(result => result.postcode === key);
+                stuff.push(Object.assign(value, {
+                    postcode: key, latitude: geoInfo.latitude, longitude: geoInfo.longitude
+                }));
+            });
+
+            return res.json({data: stuff});
 
             // return res.json({data: [
             //         {

@@ -2,10 +2,10 @@ import * as Sequelize from "sequelize";
 import * as _ from "lodash";
 
 export interface WorkersHomeCatchmentInterface {
-    id?: Number;
-    work_postal_sector?: String;
-    home_postal_sector?: String;
-    users?: Number;
+    id?: number;
+    work_postal_sector?: string;
+    home_postal_sector?: string;
+    users?: number;
 }
 
 export interface WorkersHomeCatchmentInstance extends Sequelize.Instance<WorkersHomeCatchmentInterface>, WorkersHomeCatchmentInterface {}

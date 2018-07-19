@@ -6,11 +6,13 @@ import config from "./config";
 
 import { TestModelInstance, TestModelInterface } from "./models/TestModel";
 import { WorkersHomeCatchmentInstance, WorkersHomeCatchmentInterface } from "./models/WorkersHomeCatchment";
+import { PostcodeOutCodesInstance, PostcodeOutCodesInterface } from "./models/PostcodeOutcodes";
 
 export interface DbConnection {
     sequelize: Sequelize.Sequelize;
     TestModel: Sequelize.Model<TestModelInstance, TestModelInterface>;
     workershomecatchment: Sequelize.Model<WorkersHomeCatchmentInstance, WorkersHomeCatchmentInterface>;
+    postcode_outcodes: Sequelize.Model<PostcodeOutCodesInstance, PostcodeOutCodesInterface>;
 }
 
 const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, {
