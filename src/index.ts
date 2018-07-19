@@ -6,6 +6,7 @@ import * as bodyParser from "body-parser";
 import * as methodOverride from "method-override";
 
 import TestController from "./controllers/TestController";
+import WorkHomeCatchmentController from "./controllers/WorkHomeCatchmentController";
 
 const app: any = express();
 app.use(cors({
@@ -17,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(methodOverride());
 app.use(morgan("dev", {}));
+
+app.post("/api/work-home-catchment", WorkHomeCatchmentController.post);
 
 app.post("/api/test", TestController.post);
 app.get("/api/test", TestController.get);
