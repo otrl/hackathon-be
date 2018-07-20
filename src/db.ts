@@ -9,6 +9,7 @@ import { WorkersHomeCatchmentInstance, WorkersHomeCatchmentInterface } from "./m
 import { PostcodeOutCodesInstance, PostcodeOutCodesInterface } from "./models/PostcodeOutcodes";
 import { PostcodeLadInstance, PostcodeLadInterface } from "./models/PostcodeLad";
 import { OdDataInstance, OdDataInterface } from "./models/OdData";
+import { OdDataLadInstance, OdDataLadInterface } from "./models/OdDataLad";
 
 export interface DbConnection {
     sequelize: Sequelize.Sequelize;
@@ -16,6 +17,7 @@ export interface DbConnection {
     workershomecatchment: Sequelize.Model<WorkersHomeCatchmentInstance, WorkersHomeCatchmentInterface>;
     postcode_outcodes: Sequelize.Model<PostcodeOutCodesInstance, PostcodeOutCodesInterface>;
     postcode_lad: Sequelize.Model<PostcodeLadInstance, PostcodeLadInterface>;
+    oddata_lad: Sequelize.Model<OdDataLadInstance, OdDataLadInterface>;
     oddata_lad_latlong: Sequelize.Model<OdDataInstance, OdDataInterface>;
 }
 

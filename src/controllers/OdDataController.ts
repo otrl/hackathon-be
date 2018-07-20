@@ -26,19 +26,10 @@ export default class OdDataController {
     }
 
     static async get(req: Request, res: Response) {
+        const results = await db.oddata_lad.findAll({});
+
         try{
-            return res.json({data: [
-                    {
-                        work_postal_sector: "SE18 6",
-                        home_postal_sector: "E7 8",
-                        users: 10,
-                    },
-                    {
-                        work_postal_sector: "SE18",
-                        home_postal_sector: "NW1 1",
-                        users: 62,
-                    }
-                ]});
+            return res.json({data: results});
         } catch (err) {
             return res.status(500).json({err: err.message});
         }
