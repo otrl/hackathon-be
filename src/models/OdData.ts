@@ -26,6 +26,7 @@ export default function (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.Da
         end_latitude: {type: DataTypes.STRING, allowNull: true},
         end_longitude: {type: DataTypes.STRING, allowNull: true},
         mode: {type: DataTypes.STRING, allowNull: true},
+        purpose: {type: DataTypes.STRING, allowNull: true},
         period: {type: DataTypes.STRING, allowNull: true},
         trips: {type: DataTypes.INTEGER, allowNull: true},
     }, {
