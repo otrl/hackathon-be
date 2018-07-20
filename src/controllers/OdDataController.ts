@@ -10,7 +10,11 @@ export default class OdDataController {
     static async post(req: Request, res: Response) {
         const {place, type, purpose, timeZone, mode} = req.body;
         const group: string[] = [];
-        const where: any = {};
+        const where: any = {
+            trips: {
+                [Sequelize.Op.gt]: 0
+            }
+        };
 
         if (type === "destination") {
             where.end_lad_name = place;
