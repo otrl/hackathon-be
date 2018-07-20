@@ -7,6 +7,7 @@ import * as methodOverride from "method-override";
 
 import TestController from "./controllers/TestController";
 import WorkHomeCatchmentController from "./controllers/WorkHomeCatchmentController";
+import OdDataController from "./controllers/OdDataController";
 
 const app: any = express();
 app.use(cors({
@@ -20,6 +21,9 @@ app.use(methodOverride());
 app.use(morgan("dev", {}));
 
 app.post("/api/work-home-catchment", WorkHomeCatchmentController.post);
+
+app.post("/api/od-data", OdDataController.post);
+app.get("/api/od-data", OdDataController.get);
 
 app.post("/api/test", TestController.post);
 app.get("/api/test", TestController.get);
