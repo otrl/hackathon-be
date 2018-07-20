@@ -33,6 +33,7 @@ export default class OdDataController {
         }
 
         try {
+            const point = await db.oddata_lad.findOne({where: {lad_name:place}});
             const results = await db.oddata_lad_latlong.findAll({
                 attributes: [
                     [Sequelize.fn('first', Sequelize.col('start_lad_name')), 'start_lad_name'],
@@ -60,7 +61,10 @@ export default class OdDataController {
                 results.map(r => r.period = "all");
             }
 
-            return res.json({data: results});
+            return res.json({
+                point,
+                data: results
+            });
         } catch (err) {
             return res.status(500).json({err: err.message});
         }
