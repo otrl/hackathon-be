@@ -8,7 +8,7 @@ import {CatchmentLocations} from "../constants";
 
 export default class OdDataController {
     static async post(req: Request, res: Response) {
-        const {place, type, purpose, timeZone} = req.body;
+        const {place, type, purpose, timeZone, mode} = req.body;
         const group: string[] = [];
         const where: any = {};
 
@@ -20,23 +20,19 @@ export default class OdDataController {
             group.push("end_lad_name");
         }
 
+        if (["nhb", "hbw inbound", "hbw outbound", "hbo outbound", "hbo inbound"].indexOf(purpose) >= 0) {
+            where.purpose = purpose;
+        }
+
+        if (["0700-1000", "1000-1600", "1600-1900", "1900-0700"].indexOf(timeZone) >= 0) {
+            where.period = timeZone;
+        }
+
+        if (["rail", "road"].indexOf(mode) >= 0) {
+            where.mode = mode;
+        }
+
         try {
-            if (["nhb", "hbw inbound", "hbw outbound", "hbo outbound", "hbo inbound"].indexOf(purpose) >= 0) {
-                where.purpose = purpose;
-            } else if (purpose === "all") {
-                // group.push("purpose")
-            } else {
-                throw new Error(`Invalid purpose "${purpose}"`);
-            }
-    
-            if (["0700-1000", "1000-1600", "1600-1900", "1900-0700"].indexOf(timeZone) >= 0) {
-                where.period = timeZone;
-            } else if (timeZone === "all") {
-                // group.push("period")
-            } else {
-                throw new Error(`Invalid timeZone period "${timeZone}"`);
-            }
-    
             const results = await db.oddata_lad_latlong.findAll({
                 attributes: [
                     [Sequelize.fn('first', Sequelize.col('start_lad_name')), 'start_lad_name'],
@@ -54,11 +50,14 @@ export default class OdDataController {
                 where
             });
 
-            if (purpose === "all") {
-                results.map(r => r.purpose = purpose);
+            if (where.mode === undefined) {
+                results.map(r => r.mode = "all");
             }
-            if (timeZone === "all") {
-                results.map(r => r.period = timeZone);
+            if (where.purpose === undefined) {
+                results.map(r => r.purpose = "all");
+            }
+            if (where.period === undefined) {
+                results.map(r => r.period = "all");
             }
 
             return res.json({data: results});
