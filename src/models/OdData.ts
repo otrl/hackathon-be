@@ -19,16 +19,15 @@ export interface OdDataInstance extends Sequelize.Instance<OdDataInterface>, OdD
 
 export default function (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes) {
     return sequelize.define("oddata_lad_latlong", {
-        start_lad_name: {type: DataTypes.STRING, primaryKey: true},
-        postcode_sector: {type: DataTypes.STRING, primaryKey: true},
-        start_latitude: {type: DataTypes.STRING, primaryKey: true},
-        start_longitude: {type: DataTypes.STRING, primaryKey: true},
-        end_lad_name: {type: DataTypes.STRING, primaryKey: true},
-        end_latitude: {type: DataTypes.STRING, primaryKey: true},
-        end_longitude: {type: DataTypes.STRING, primaryKey: true},
-        mode: {type: DataTypes.STRING, primaryKey: true},
-        period: {type: DataTypes.STRING, primaryKey: true},
-        trips: {type: DataTypes.INTEGER, primaryKey: true},
+        start_lad_name: {type: DataTypes.STRING, allowNull: true},
+        start_latitude: {type: DataTypes.STRING, allowNull: true},
+        start_longitude: {type: DataTypes.STRING, allowNull: true},
+        end_lad_name: {type: DataTypes.STRING, allowNull: true},
+        end_latitude: {type: DataTypes.STRING, allowNull: true},
+        end_longitude: {type: DataTypes.STRING, allowNull: true},
+        mode: {type: DataTypes.STRING, allowNull: true},
+        period: {type: DataTypes.STRING, allowNull: true},
+        trips: {type: DataTypes.INTEGER, allowNull: true},
     }, {
         timestamps: false,
         freezeTableName: true,
